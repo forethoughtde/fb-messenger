@@ -1,11 +1,16 @@
-import { renderToString } from 'react-dom/server'
+import { renderToString } from "react-dom/server";
 
-const DEV = process.env.NODE_ENV === 'development'
-const assetManifest = JSON.parse(process.env.REACT_APP_ASSET_MANIFEST || '{}')
-const bundleJsUrl = DEV ? '/static/js/bundle.js' : `/${assetManifest['main.js']}`
+const DEV = process.env.NODE_ENV === "development";
+const assetManifest = JSON.parse(process.env.REACT_APP_ASSET_MANIFEST || "{}");
+const bundleJsUrl = DEV
+  ? "/static/js/bundle.js"
+  : `/${assetManifest["main.js"]}`;
 
-export default (component, { sheet, response, graphqlClient, status = 200 }) => {
-  const bodyHTML = renderToString(component)
+export default (
+  component,
+  { sheet, response, graphqlClient, status = 200 }
+) => {
+  const bodyHTML = renderToString(component);
 
   response.status(status).send(`
   <!DOCTYPE html>
@@ -16,21 +21,24 @@ export default (component, { sheet, response, graphqlClient, status = 200 }) => 
         <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <link href="/static/css/index.css" media="all" rel="stylesheet" />
-        ${ '<!--we need to add the styles from styled-components here... -->'}
-        ${graphqlClient ? `
+        ${"<!--we need to add the styles from styled-components here... -->"}
+        ${
+          graphqlClient
+            ? `
           <script>
 
           </script>
-        `:``}
+        `
+            : ``
+        }
         <link rel="manifest" href="/manifest.json">
         <link rel="shortcut icon" href="/favicon.ico">
         <title>Clone Messenger</title>
       </head>
       <body>
-        <div id="root">${'hello SSR'}</div>
+        <div id="root">${bodyHTML}</div>
         <script type="application/javascript" src="${bundleJsUrl}"></script>
       </body>
   </html>
-  `
-  )
-}
+  `);
+};
