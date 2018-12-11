@@ -1,111 +1,137 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import styled, { css } from 'styled-components'
-import { graphql } from 'react-apollo'
-import gql from 'graphql-tag'
-import { withRouter } from 'react-router-dom'
+import React from "react";
+import PropTypes from "prop-types";
+import styled, { css } from "styled-components";
+import { graphql, Mutation } from "react-apollo";
+import gql from "graphql-tag";
+import { withRouter } from "react-router-dom";
+import Snackbar from "@material-ui/core/Snackbar";
 
-import MESSAGES_QUERY from './Messages.graphql'
-import { THREADS_QUERY } from '../../Threads'
-import colours from '../../../../App/styles/export/colours.css'
-import Avatar from '../../../../App/components/Layout/Avatar'
-import Icon from '../../../../App/components/Layout/Icon'
+import MESSAGES_QUERY from "./Messages.graphql";
+import { THREADS_QUERY } from "../../Threads";
+import colours from "../../../../App/styles/export/colours.css";
+import Avatar from "../../../../App/components/Layout/Avatar";
+import Icon from "../../../../App/components/Layout/Icon";
 
 const MessagesWrapper = styled.div`
   display: flex;
-  flex:2;
+  flex: 2;
   flex-direction: column;
   justify-content: space-between;
-`
+`;
 
 const MessagesList = styled.div`
-    padding: 1em;
-    overflow-y: auto;
-    p {
-      color: ${colours.darkGrey};
-      font-size: 0.9em;
-    }
-`
+  padding: 1em;
+  overflow-y: auto;
+  p {
+    color: ${colours.darkGrey};
+    font-size: 0.9em;
+  }
+`;
 
 const NewMessage = styled.div`
-    min-height: 20px;
-    padding: 1em;
-    border-top: 1px solid ${colours.mediumGrey};
-    font-size: 0.9rem;
-    display: flex;
-    justify-content: space-between;
-    height: 60px;
-`
+  min-height: 20px;
+  padding: 1em;
+  border-top: 1px solid ${colours.mediumGrey};
+  font-size: 0.9rem;
+  display: flex;
+  justify-content: space-between;
+  height: 60px;
+`;
 
 const MessageBox = styled.input`
   border-color: transparent;
   width: 90%;
-`
+`;
 
 const MessageWrapper = styled.div`
   padding: 0.5em;
   display: flex;
 
-  ${props => props.from === 'sent' && css`
-    justify-content: flex-end;
-  `}
-`
+  ${props =>
+    props.from === "sent" &&
+    css`
+      justify-content: flex-end;
+    `}
+`;
 
 const MessageRead = styled.div`
   display: flex;
   flex-flow: column;
   justify-content: flex-end;
-`
+`;
 
 const Message = styled.div`
-    border-radius: 20px;
-    padding: 0.5em 1em;
-    display: inline-block;
-    font-size: 0.9rem;
-    background: ${props => props.from === 'received' ? colours.lightGrey : colours.lightBlue};
-    color: ${props => props.from === 'received' ? colours.black : colours.white}
-`
-
+  border-radius: 20px;
+  padding: 0.5em 1em;
+  display: inline-block;
+  font-size: 0.9rem;
+  background: ${props =>
+    props.from === "received" ? colours.lightGrey : colours.lightBlue};
+  color: ${props =>
+    props.from === "received" ? colours.black : colours.white};
+`;
 
 class Messages extends React.Component {
   state = {
-    newMessage: ''
-  }
+    newMessage: ""
+  };
+
+  // sendMessage = async mutate => {
+  //   const { username } = this.props;
+  //   const { newMessage } = this.state;
+  //   await mutate({
+  //     variables: {
+  //       to: username,
+  //       from: "me",
+  //       message: newMessage
+  //     }
+  //   });
+
+  //   this.setState({ newMessage: "" });
+  // };
 
   sendMessage = async () => {
-    const { username, } = this.props
-    const { newMessage } = this.state
+    const { username } = this.props;
+    const { newMessage } = this.state;
 
-    await this.props.sendMessage({
+    await this.props.sendMessage.mutate({
       variables: {
         to: username,
-        from: 'me',
+        from: "me",
         message: newMessage
       }
-    })
+    });
 
-    this.setState({ newMessage: '' })
-  }
+    this.setState({ newMessage: "" });
+  };
 
   render() {
-    const { data: { conversationConnection, loading }, username } = this.props
+    const {
+      data: { conversationConnection, loading },
+      username
+    } = this.props;
     if (loading) {
-      return <h2>Loading...</h2>
+      return <h2>Loading...</h2>;
     }
 
-    const styledConversation = conversationConnection.edges.map(({ node }, i) => (
-      <MessageWrapper key={i} from={node.from === "you" ? "sent" : "received"}>
-        {node.to === "you" && <Avatar username={username} size="medium" />}
-        <Message from={node.from === "you" ? "sent" : "received"}>
-          {node.message}
-        </Message>
-        {node.from === "you" && (
-          <MessageRead>
-            <Icon name="check-circle" size={0.6} />
-          </MessageRead>
-        )}
-      </MessageWrapper>
-    ))
+    const styledConversation = conversationConnection.edges.map(
+      ({ node }, i) => (
+        <MessageWrapper
+          key={i}
+          from={node.from === "you" ? "sent" : "received"}
+        >
+          {node.to === "you" && <Avatar username={username} size="medium" />}
+          <Message from={node.from === "you" ? "sent" : "received"}>
+            {node.message}
+          </Message>
+          {node.from === "you" && (
+            <MessageRead>
+              <Icon name="check-circle" size={0.6} />
+            </MessageRead>
+          )}
+        </MessageWrapper>
+      )
+    );
 
     return (
       <MessagesWrapper>
@@ -123,21 +149,114 @@ class Messages extends React.Component {
             value={this.state.newMessage}
             placeholder="Type your message..."
           />
-          <button onClick={this.sendMessage}>Send</button>
+          {/* <Mutation
+            mutation={SEND_MESSAGE_MUTATION}
+            refetchQueries={[
+              {
+                query: MESSAGES_QUERY,
+                variables: { username: this.props.username }
+              }
+            ]}
+            update={(store, { data: { sendMessageWithRandomError } }) => {
+              const query = { query: THREADS_QUERY };
+
+              // Read the data from our cache for this query.
+              const data = store.readQuery(query);
+
+              // Mutate the cached data
+              data.threadsConnection.edges.map(({ node }) => {
+                if (node.username === sendMessageWithRandomError.to) {
+                  node.lastMessage = {
+                    ...node.lastMessage,
+                    ...sendMessageWithRandomError
+                  };
+                }
+                return { node };
+              });
+
+              // Write our data back to the cache.
+              store.writeQuery({ ...query, data });
+            }}
+          >
+            {(mutate, { error, loading }) => (
+              <React.Fragment>
+                <button
+                  disabled={this.props.sendMessage.loading}
+                  onClick={() => this.sendMessage(mutate)}
+                >
+                  {loading ? "..." : "Send"}
+                </button>
+                <Snackbar
+                  anchorOrigin={{
+                    vertical: "bottom",
+                    horizontal: "left"
+                  }}
+                  open={!!error}
+                  autoHideDuration={2000}
+                  ContentProps={{
+                    "aria-describedby": "message-id"
+                  }}
+                  message={
+                    <span id="message-id">{error && error.message}</span>
+                  }
+                />
+              </React.Fragment>
+            )}
+          </Mutation> */}
+          <button
+            disabled={this.props.sendMessage.loading}
+            onClick={this.sendMessage}
+          >
+            {this.props.sendMessage.loading ? "..." : "Send"}
+          </button>
+
+          <Snackbar
+            anchorOrigin={{
+              vertical: "bottom",
+              horizontal: "left"
+            }}
+            open={!!this.props.sendMessage.error}
+            autoHideDuration={2000}
+            ContentProps={{
+              "aria-describedby": "message-id"
+            }}
+            message={
+              <span id="message-id">
+                {this.props.sendMessage.error &&
+                  this.props.sendMessage.error.message}
+              </span>
+            }
+          />
         </NewMessage>
       </MessagesWrapper>
-    )
+    );
   }
 }
 
 Messages.propTypes = {
   data: PropTypes.object,
-  username: PropTypes.string.isRequired,
-}
+  username: PropTypes.string.isRequired
+};
 
-const sendMessage = graphql(gql`
+const graphqlMutation = (
+  mutation,
+  { options, ...rest }
+) => Component => props => (
+  <Mutation mutation={mutation} {...options(props)} {...rest}>
+    {(mutate, status) => (
+      <Component
+        {...props}
+        {...{ [rest.name || "mutation"]: { mutate, ...status } }}
+      />
+    )}
+  </Mutation>
+);
+
+const SEND_MESSAGE_MUTATION = gql`
   mutation sendMessage($from: String!, $to: String!, $message: String!) {
-    sendMessage(input: { from: $from, to: $to, message: $message }) {
+    sendMessageWithRandomError(
+      input: { from: $from, to: $to, message: $message }
+    ) {
       id
       time
       to
@@ -145,39 +264,43 @@ const sendMessage = graphql(gql`
       message
     }
   }
-`,
-{
-  options: (props) => ({
-    refetchQueries: [{
-      query: MESSAGES_QUERY, variables: { username: props.username }
-    }],
-    update: (store, { data: { sendMessage } }) => {
-      const query = { query: THREADS_QUERY }
+`;
+const sendMessage = graphqlMutation(SEND_MESSAGE_MUTATION, {
+  options: props => ({
+    refetchQueries: [
+      {
+        query: MESSAGES_QUERY,
+        variables: { username: props.username }
+      }
+    ],
+    update: (store, { data: { sendMessageWithRandomError } }) => {
+      const query = { query: THREADS_QUERY };
 
       // Read the data from our cache for this query.
-      const data = store.readQuery(query)
+      const data = store.readQuery(query);
 
       // Mutate the cached data
       data.threadsConnection.edges.map(({ node }) => {
-        if (node.username === sendMessage.to) {
+        if (node.username === sendMessageWithRandomError.to) {
           node.lastMessage = {
-            ...node.lastMessage, ...sendMessage
-          }
+            ...node.lastMessage,
+            ...sendMessageWithRandomError
+          };
         }
-        return { node }
-      })
+        return { node };
+      });
 
       // Write our data back to the cache.
-      store.writeQuery({ ...query, data })
+      store.writeQuery({ ...query, data });
     }
   }),
-  name: 'sendMessage',
-})
+  name: "sendMessage"
+});
 
 const fetchConversation = graphql(MESSAGES_QUERY, {
   options: props => ({
     variables: { username: props.match.params.username }
   })
-})
+});
 
-export default withRouter(sendMessage(fetchConversation(Messages)))
+export default withRouter(sendMessage(fetchConversation(Messages)));
