@@ -1,42 +1,44 @@
-import React, { Component } from 'react'
-import { Redirect } from 'react-router-dom'
-import Input from '../Form/Input'
-import { logIn } from '../../api/auth'
-import './Login.css'
+import React, { Component } from "react";
+import { Redirect } from "react-router-dom";
+import Input from "../Form/Input";
+import Button from "../Form/Button";
+import P from "../Form/P";
+import { logIn } from "../../api/auth";
+import "./Login.css";
 
 class Login extends Component {
-  constructor () {
-    super()
+  constructor() {
+    super();
 
     this.state = {
       redirectToReferrer: false
-    }
+    };
   }
 
-  handleSubmit = async (e) => {
-    e.preventDefault()
+  handleSubmit = async e => {
+    e.preventDefault();
 
-    const { history } = this.props
-    const { password, email } = this
+    const { history } = this.props;
+    const { password, email } = this;
 
     if (!password || !email) {
-      alert('Email and password are required')
-      return
+      alert("Email and password are required");
+      return;
     }
 
-    const { status } = await logIn({ password, email })
+    const { status } = await logIn({ password, email });
 
     if (status === 200) {
-      this.setState({ redirectToReferrer: true })
+      this.setState({ redirectToReferrer: true });
     }
-  }
+  };
 
-  render () {
-    const { from } = this.props.location.state || { from: { pathname: "/" } }
-    const { redirectToReferrer } = this.state
+  render() {
+    const { from } = this.props.location.state || { from: { pathname: "/" } };
+    const { redirectToReferrer } = this.state;
 
     if (redirectToReferrer) {
-      return <Redirect to={from} />
+      return <Redirect to={from} />;
     }
 
     return (
@@ -49,26 +51,27 @@ class Login extends Component {
             type="email"
             placeholder="Enter email"
             defaultValue={this.email}
-            onChange={e => this.email = e.target.value}
+            onChange={e => (this.email = e.target.value)}
           />
           <Input
             type="password"
             placeholder="Enter password"
             className="form-control"
             defaultValue={this.password}
-            onChange={e => this.password = e.target.value}
+            onChange={e => (this.password = e.target.value)}
           />
         </div>
-        <button
-          type="submit"
-          className="btn btn-lg btn-primary btn-block"
-          onClick={this.handleSubmit}
-        >
+        <Button primary large block type="submit" onClick={this.handleSubmit}>
           Sign in
-        </button>
+        </Button>
+        <P>Disclaimer, this network is highly addictive.</P>
+        <P quote>
+          "My friends went from a few dozens to a few thousand after I joined
+          this network!" - Anonymous
+        </P>
       </form>
-    )
+    );
   }
 }
 
-export default Login
+export default Login;
