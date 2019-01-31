@@ -19,7 +19,7 @@ const UserDetailWrapper = styled.div`
     border-bottom: 1px solid ${colours.mediumGrey};
     &:last-child {
       border-bottom: none;
-    }
+    }}
 `;
 
 const User = styled.div`
@@ -29,6 +29,7 @@ const User = styled.div`
     > div {
       display: flex;
       align-items: center;
+    }
 `;
 
 const UserName = styled.div`
