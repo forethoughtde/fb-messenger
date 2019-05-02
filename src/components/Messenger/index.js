@@ -1,21 +1,27 @@
-import React from 'react'
-import styled from 'styled-components'
-import colours from '../../styles/export/colours.css'
+import React from "react";
+import PropTypes from "prop-types";
+import { Route } from "react-router-dom";
+import styled from "styled-components";
 
-import ThreadsContainer from './ThreadsContainer'
-import ConversationSection from './Conversation/ConversationSection'
+import colours from "../../styles/export/colours.css";
+import ThreadsContainer from "./ThreadsContainer";
+import ConversationContainer from "./Conversation/ConversationContainer";
 
 const MessengerWrapper = styled.div`
-    display: flex;
-    flex: 1;
+  display: flex;
+  flex: 1;
   border-right: 1px solid ${colours.mediumGrey};
-`
+`;
 
-const Messenger = () => (
+const Messenger = ({ match }) => (
   <MessengerWrapper>
     <ThreadsContainer />
-    <ConversationSection />
+    <Route path={`${match.url}/:username`} component={ConversationContainer} />
   </MessengerWrapper>
-)
+);
 
-export default Messenger
+Messenger.propTypes = {
+  match: PropTypes.object.isRequired
+};
+
+export default Messenger;

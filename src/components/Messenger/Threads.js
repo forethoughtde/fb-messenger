@@ -1,17 +1,18 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import styled from 'styled-components'
-import colours from '../../styles/export/colours.css'
+import React from "react";
+import PropTypes from "prop-types";
+import styled from "styled-components";
+import { Route } from "react-router-dom";
+import colours from "../../styles/export/colours.css";
 
-import Avatar from '../Layout/Avatar'
-import Icon from '../Layout/Icon'
+import Avatar from "../Layout/Avatar";
+import Icon from "../Layout/Icon";
 
 const ThreadsWrapper = styled.div`
   display: flex;
   border-right: 1px solid ${colours.mediumGrey};
   flex-direction: column;
-  flex:1;
-`
+  flex-basis: 30%;
+`;
 
 const ThreadBar = styled.div`
   border-bottom: 1px solid ${colours.mediumGrey};
@@ -22,25 +23,24 @@ const ThreadBar = styled.div`
     align-content: center;
     justify-content: space-between;
   }
-`
+`;
 
 const ThreadList = styled.ul`
-    overflow-y: auto;
-    width: 100%;
-    list-style: none inside none;
-    padding: 0;
-    margin: 0;
-    li {
-      display: flex;
-      align-items: center;
-      padding: 0.4em 0.75em;
-      &:hover {
-        background: ${colours.lightGrey};
-        cursor: pointer;
-      }
-
+  overflow-y: auto;
+  width: 100%;
+  list-style: none inside none;
+  padding: 0;
+  margin: 0;
+  li {
+    display: flex;
+    align-items: center;
+    padding: 0.4em 0.75em;
+    &:hover {
+      background: ${colours.lightGrey};
+      cursor: pointer;
     }
-`
+  }
+`;
 
 const UserName = styled.div`
   font-size: 0.9rem;
@@ -55,7 +55,7 @@ const UserName = styled.div`
     margin: 2px 0;
     display: block;
   }
-`
+`;
 
 const Threads = ({ history, match, threads }) => (
   <ThreadsWrapper>
@@ -66,24 +66,29 @@ const Threads = ({ history, match, threads }) => (
         <Icon name="edit" />
       </h2>
     </ThreadBar>
-    <ThreadList>
-      {threads.map((thread, i) => (
-        <li key={i} onClick={() => history.push(`${match.url}/${thread.username}`)}>
-          <Avatar username={thread.username} size="large" />
-          <UserName>
-            <span>{`${thread.name.first} ${thread.name.last}`}</span>
-            <small>{`${thread.lastMessage.message}`}</small>
-          </UserName>
-        </li>
-      ))}
-    </ThreadList>
+    <Route
+      render={({ match, history }) => (
+        <ThreadList>
+          {threads.map((thread, i) => (
+            <li
+              key={i}
+              onClick={() => history.push(`${match.url}/${thread.username}`)}
+            >
+              <Avatar username={thread.username} size="large" />
+              <UserName>
+                <span>{`${thread.name.first} ${thread.name.last}`}</span>
+                <small>{`${thread.lastMessage.message}`}</small>
+              </UserName>
+            </li>
+          ))}
+        </ThreadList>
+      )}
+    />
   </ThreadsWrapper>
-)
+);
 
 Threads.propTypes = {
-  threads: PropTypes.array,
-  history: PropTypes.object.isRequired,
-  match: PropTypes.object.isRequired,
-}
+  threads: PropTypes.array
+};
 
-export default Threads
+export default Threads;
