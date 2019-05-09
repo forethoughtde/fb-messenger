@@ -10,11 +10,13 @@ If you haven't already set up your project, head here and follow the instruction
 
 ### Step 2
 
+Checkout the branch
+
 ```sh
  git checkout styling-in-react
 ```
 
-Execute either:
+Install the dependencies by executing either:
 ```sh
  yarn
 ``` 
@@ -22,6 +24,12 @@ or
 ```sh
  npm install
 ```
+
+Run storybook by executing:
+```sh
+ npm run storybook
+``` 
+
 
 ## Exercise
 
