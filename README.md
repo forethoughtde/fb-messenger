@@ -14,6 +14,15 @@ If you haven't already set up your project, head here and follow the instruction
  git checkout styling-in-react
 ```
 
+Execute either:
+```sh
+ yarn
+``` 
+or 
+```sh
+ npm install
+```
+
 ## Exercise
 
 ### Part 1, Storybook
