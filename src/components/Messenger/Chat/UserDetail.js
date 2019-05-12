@@ -1,8 +1,8 @@
-import React from 'react'
-import PropTypes from 'prop-types'
+import React from "react";
+import PropTypes from "prop-types";
 
-import Avatar from '../../../Layout/Avatar'
-import Icon from '../../../Layout/Icon'
+import Avatar from "../../Layout/Avatar";
+import Icon from "../../Layout/Icon";
 
 const UserDetail = ({ username, toggleModal }) => (
   <div className="user-detail">
@@ -10,9 +10,7 @@ const UserDetail = ({ username, toggleModal }) => (
       <div>
         <Avatar username={username} size="large" />
         <div className="user-title">
-          <div className="user-name">
-            { username }
-          </div>
+          <div className="user-name">{username}</div>
           <div className="last-active">
             Active {Math.floor(Math.random() * 3) + 1}m ago
           </div>
@@ -25,11 +23,11 @@ const UserDetail = ({ username, toggleModal }) => (
     <div>Options</div>
     <div>Facebook Profile</div>
   </div>
-)
+);
 
 UserDetail.propTypes = {
   toggleModal: PropTypes.func.isRequired,
-  username: PropTypes.string.isRequired,
-}
+  username: PropTypes.string.isRequired
+};
 
-export default UserDetail
+export default UserDetail;
