@@ -16,20 +16,17 @@ Checkout the branch
  git checkout styling-in-react
 ```
 
-Install the dependencies by executing either:
+Install the dependencies by executing:
+
 ```sh
  yarn
-``` 
-or 
-```sh
- npm install
 ```
 
 Run storybook by executing:
+
 ```sh
  npm run storybook
-``` 
-
+```
 
 ## Exercise
 
@@ -83,7 +80,7 @@ Current styles, which are being mapped to our components via classes, can be fou
 
 ## Learning objectives
 
-- Understand how thinking of styles in a component based approach is more beneficial. 
+- Understand how thinking of styles in a component based approach is more beneficial.
 - Understand different approaches to styling in React and how the shift in styling appraoch continues to maintain separation of concerns.
 - Learn how to use styled-components and apply them to a project to achieve styling at run time.
 - Learn how using storybook is a good option for visually documenting our components.
