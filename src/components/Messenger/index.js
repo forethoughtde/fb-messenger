@@ -5,7 +5,7 @@ import styled from "styled-components";
 
 import colours from "../../styles/export/colours.css";
 import ThreadsContainer from "./ThreadsContainer";
-import ConversationContainer from "./Conversation/ConversationContainer";
+import ChatContainer from "./Chat/ChatContainer";
 
 const MessengerWrapper = styled.div`
   display: flex;
@@ -16,7 +16,7 @@ const MessengerWrapper = styled.div`
 const Messenger = ({ match }) => (
   <MessengerWrapper>
     <ThreadsContainer />
-    <Route path={`${match.url}/:username`} component={ConversationContainer} />
+    <Route path={`${match.url}/:username`} component={ChatContainer} />
   </MessengerWrapper>
 );
 
