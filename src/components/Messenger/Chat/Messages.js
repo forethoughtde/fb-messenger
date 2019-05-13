@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 import Avatar from "../../Layout/Avatar";
 import Icon from "../../Layout/Icon";
 
-const Messages = ({ messages = [], username, toggleModal }) => {
+const Messages = ({ messages = [], username }) => {
   const conversation = messages.map((message, i) => (
     <div
       key={i}
@@ -33,7 +33,7 @@ const Messages = ({ messages = [], username, toggleModal }) => {
           placeholder="Type your message..."
           className="message-box"
         />
-        <button onClick={toggleModal}>Send</button>
+        <button>Send</button>
       </div>
     </div>
   );
@@ -41,7 +41,6 @@ const Messages = ({ messages = [], username, toggleModal }) => {
 
 Messages.propTypes = {
   messages: PropTypes.array,
-  toggleModal: PropTypes.func.isRequired,
   username: PropTypes.string.isRequired
 };
 

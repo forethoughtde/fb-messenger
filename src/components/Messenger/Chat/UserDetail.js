@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 import Avatar from "../../Layout/Avatar";
 import Icon from "../../Layout/Icon";
 
-const UserDetail = ({ username, toggleModal }) => (
+const UserDetail = ({ username }) => (
   <div className="user-detail">
     <div className="user">
       <div>
@@ -16,9 +16,7 @@ const UserDetail = ({ username, toggleModal }) => (
           </div>
         </div>
       </div>
-      <a onClick={toggleModal}>
-        <Icon name="cog" />
-      </a>
+      <Icon name="cog" />
     </div>
     <div>Options</div>
     <div>Facebook Profile</div>
@@ -26,7 +24,6 @@ const UserDetail = ({ username, toggleModal }) => (
 );
 
 UserDetail.propTypes = {
-  toggleModal: PropTypes.func.isRequired,
   username: PropTypes.string.isRequired
 };
 

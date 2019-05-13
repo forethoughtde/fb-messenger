@@ -5,9 +5,9 @@ import PropTypes from "prop-types";
 import Icon from "../../Layout/Icon";
 
 const ChatBar = ({ username, match }) => (
-  <div className="conversation-bar">
+  <div className="chat-bar">
     <h2>{username}</h2>
-    <div className="conversation-menu">
+    <div className="chat-menu">
       <Icon name="phone" />
       <Icon name="video" />
       <Link to={`${match.url}/detail`}>
