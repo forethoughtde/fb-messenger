@@ -10,22 +10,8 @@ If you haven't already set up your project, head here and follow the instruction
 
 ### Step 2
 
-Checkout the branch
-
 ```sh
  git checkout styling-in-react
-```
-
-Install the dependencies by executing:
-
-```sh
- yarn
-```
-
-Run storybook by executing:
-
-```sh
- npm run storybook
 ```
 
 ## Exercise
@@ -75,15 +61,14 @@ Once you installed styled-components and you have your Sass variables in JS, you
 Current styles, which are being mapped to our components via classes, can be found in the index.css file (Sass is being compiled to CSS) which is being imported to the `src/index.js` file. The goal of the refactoring is to migrate those `src/index.js` styles into styled-components.
 
 - To get started, uncomment the `AppWrapper` component in `src/components/App.js`. Follow the comments in that file to get more tips.
+- Refactor the styles from the `src/components/Layout/Avatar.js` component into styled-components
+
+## Bonus exercise
+
+Let's migrate the rest of the FB-Messenger SASS styles into styled-components 💪 🎉
+
 - Take appropriate styles from the stylesheet for each of the component and create styled components within each of the components or as a separate component should you need it (if the styled-component is being used on multiple places).
 - You can work your way through your application, starting with smaller components in the Layout folder to the bigger ones in Messenger.
-
-## Learning objectives
-
-- Understand how thinking of styles in a component based approach is more beneficial.
-- Understand different approaches to styling in React and how the shift in styling appraoch continues to maintain separation of concerns.
-- Learn how to use styled-components and apply them to a project to achieve styling at run time.
-- Learn how using storybook is a good option for visually documenting our components.
 
 ## Articles and links
 
