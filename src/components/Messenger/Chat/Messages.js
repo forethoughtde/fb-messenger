@@ -65,7 +65,7 @@ const Message = styled.div`
     props.from === "received" ? colours.black : colours.white};
 `;
 
-const Messages = ({ messages = [], username, toggleModal }) => {
+const Messages = ({ messages = [], username }) => {
   const styledMessages = messages.map((message, i) => (
     <MessageWrapper key={i} from={message.from === "you" ? "sent" : "received"}>
       {message.to === "you" && <Avatar username={username} size="medium" />}
@@ -88,7 +88,7 @@ const Messages = ({ messages = [], username, toggleModal }) => {
       </MessagesList>
       <NewMessage>
         <MessageBox type="text" placeholder="Type your message..." />
-        <button onClick={toggleModal}>Send</button>
+        <button>Send</button>
       </NewMessage>
     </MessagesWrapper>
   );
@@ -96,7 +96,6 @@ const Messages = ({ messages = [], username, toggleModal }) => {
 
 Messages.propTypes = {
   messages: PropTypes.array,
-  toggleModal: PropTypes.func.isRequired,
   username: PropTypes.string.isRequired
 };
 

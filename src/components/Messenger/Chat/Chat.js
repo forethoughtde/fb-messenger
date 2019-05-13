@@ -6,7 +6,6 @@ import styled from "styled-components";
 import ChatBar from "./ChatBar";
 import UserDetail from "./UserDetail";
 import Messages from "./Messages";
-import Modal from "../../Modal";
 
 const MessagesWrapper = styled.div`
   display: flex;
@@ -19,50 +18,26 @@ const ChatWrapper = styled.div`
   flex-basis: 70%;
 `;
 
-class Chat extends Component {
-  constructor() {
-    super();
-    this.state = {
-      showModal: false
-    };
+const Chat = ({ messages = [], match }) => {
+  const { username } = match.params;
+
+  if (!messages.length) {
+    return <h2>Loading...</h2>;
   }
 
-  toggleModal = () => {
-    this.setState(prevState => ({
-      showModal: !prevState.showModal
-    }));
-  };
-
-  render() {
-    const { messages = [], match } = this.props;
-    const { username } = match.params;
-    const { showModal } = this.state;
-
-    if (!messages.length) {
-      return <h2>Loading...</h2>;
-    }
-
-    return (
-      <ChatWrapper>
-        <ChatBar username={username} match={match} />
-        <MessagesWrapper>
-          <Modal show={showModal} toggleModal={this.toggleModal} />
-          <Messages
-            messages={messages}
-            username={username}
-            toggleModal={this.toggleModal}
-          />
-          <Route
-            path={`${match.url}/detail`}
-            component={() => (
-              <UserDetail username={username} toggleModal={this.toggleModal} />
-            )}
-          />
-        </MessagesWrapper>
-      </ChatWrapper>
-    );
-  }
-}
+  return (
+    <ChatWrapper>
+      <ChatBar username={username} match={match} />
+      <MessagesWrapper>
+        <Messages messages={messages} username={username} />
+        <Route
+          path={`${match.url}/detail`}
+          component={() => <UserDetail username={username} />}
+        />
+      </MessagesWrapper>
+    </ChatWrapper>
+  );
+};
 
 Chat.propTypes = {
   messages: PropTypes.array,
