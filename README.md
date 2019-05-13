@@ -56,16 +56,16 @@ Copy the Sass variables from `src/styles/variables.scss` into `src/styles/export
 
 ### Part 3, refactoring
 
-Once you installed styled-components and you have your Sass variables in JS, you can start refactoring your application.
+Now that you have your Sass variables in JS, you can start refactoring your application.
 
-Current styles, which are being mapped to our components via classes, can be found in the index.css file (Sass is being compiled to CSS) which is being imported to the `src/index.js` file. The goal of the refactoring is to migrate those `src/index.js` styles into styled-components.
+Current styles, which are being mapped to our components via classes, can be found in the index.css file (Sass is being compiled to CSS) which is being imported to the `src/index.js` file. The goal of the refactoring is to migrate those `src/index.js` styles into styled-components. Let's start by migrating the styles from two components into styled-components.
 
-- To get started, uncomment the `AppWrapper` component in `src/components/App.js`. Follow the comments in that file to get more tips.
-- Refactor the styles from the `src/components/Layout/Avatar.js` component into styled-components
+- The first component, uncomment the `AppWrapper` component in `src/components/App.js`. Follow the comments in that file to get more tips.
+- The second component is more interesting since you can use some conditional rendering in the CSS (meaning using props in your styles). Refactor the styles from the `src/components/Layout/Avatar.js` component into styled-components.
 
 ## Bonus exercise
 
-Let's migrate the rest of the FB-Messenger SASS styles into styled-components 💪 🎉
+Let's migrate the rest of the FB-Messenger Sass styles into styled-components 💪 🎉
 
 - Take appropriate styles from the stylesheet for each of the component and create styled components within each of the components or as a separate component should you need it (if the styled-component is being used on multiple places).
 - You can work your way through your application, starting with smaller components in the Layout folder to the bigger ones in Messenger.
