@@ -1,5 +1,5 @@
-import React from 'react'
+import React from "react";
 
-const Link = ({ children, to, ...rest }) => <a href={to} {...rest}>{children}</a>
+const Link = () => null;
 
-export default Link
+export default Link;
