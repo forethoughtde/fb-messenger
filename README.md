@@ -58,10 +58,10 @@ Copy the Sass variables from `src/styles/variables.scss` into `src/styles/export
 
 Once you installed styled-components and you have your Sass variables in JS, you can start refactoring your application.
 
-Current styles, which are being mapped to our components via classes, can be found in the index.css file (Sass is being compiled to CSS) which is being imported to the `src/index.js` file. The goal of the refactoring is to migrate those `src/index.js` styles into styled-components.
+Current styles, which are being mapped to our components via classes, can be found in the index.css file (Sass is being compiled to CSS) which is being imported to the `src/index.js` file. The goal of the refactoring is to migrate those `src/index.js` styles into styled-components. Let's start by migrating the styles from two components into styled-components.
 
-- To get started, uncomment the `AppWrapper` component in `src/components/App.js`. Follow the comments in that file to get more tips.
-- Refactor the styles from the `src/components/Layout/Avatar.js` component into styled-components
+- The first component, uncomment the `AppWrapper` component in `src/components/App.js`. Follow the comments in that file to get more tips.
+- The second component is more interesting since you can use some conditional rendering in the CSS (meaning using props in your styles). Refactor the styles from the `src/components/Layout/Avatar.js` component into styled-components.
 
 ## Bonus exercise
 
