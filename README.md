@@ -65,7 +65,7 @@ Current styles, which are being mapped to our components via classes, can be fou
 
 ## Bonus exercise
 
-Let's migrate the rest of the FB-Messenger SASS styles into styled-components 💪 🎉
+Let's migrate the rest of the FB-Messenger Sass styles into styled-components 💪 🎉
 
 - Take appropriate styles from the stylesheet for each of the component and create styled components within each of the components or as a separate component should you need it (if the styled-component is being used on multiple places).
 - You can work your way through your application, starting with smaller components in the Layout folder to the bigger ones in Messenger.
