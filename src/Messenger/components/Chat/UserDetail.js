@@ -1,12 +1,10 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Query } from "react-apollo";
 import styled from "styled-components";
 
 import colours from "App/styles/export/colours.css";
 import Avatar from "App/components/Layout/Avatar";
 import Icon from "App/components/Layout/Icon";
-import USER_DETAIL_QUERY from "./UserDetail.graphql";
 
 const UserDetailWrapper = styled.div`
   width: 33.3%;
@@ -42,10 +40,6 @@ const LastActive = styled.div`
   color: ${colours.darkGrey};
 `;
 
-const UserBio = styled.p`
-  padding: 1em;
-`;
-
 const UserDetail = ({ username }) => (
   <UserDetailWrapper>
     <User>
@@ -58,21 +52,10 @@ const UserDetail = ({ username }) => (
           </LastActive>
         </div>
       </div>
-      <a>
-        <Icon name="cog" />
-      </a>
+      <Icon name="cog" />
     </User>
-
-    <UserBio>
-      <Query query={USER_DETAIL_QUERY} variables={{ username }}>
-        {({ loading, error, data }) => {
-          if (loading) return "Loading...";
-          if (error) return `Error! ${error.message}`;
-
-          return data.getUser.bio;
-        }}
-      </Query>
-    </UserBio>
+    <div>Options</div>
+    <div>Facebook Profile</div>
   </UserDetailWrapper>
 );
 

@@ -1,0 +1,11 @@
+query messagesConnection($username: String!) {
+  messagesConnection(first: 10, username: $username) {
+    edges {
+      node {
+        to
+        message
+        from
+      }
+    }
+  }
+}

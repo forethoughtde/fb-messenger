@@ -64,10 +64,12 @@ const Threads = ({ history, match, data }) => {
   } else if (data.error) {
     content = <p>Oops, there was a problem</p>;
   } else {
-    const { threads = [] } = data;
+    const {
+      threadsConnection: { edges: threads }
+    } = data;
     content = threads.length ? (
       <ThreadList>
-        {threads.map(thread => (
+        {threads.map(({ node: thread }) => (
           <li onClick={() => history.push(`${match.url}/${thread.username}`)}>
             <Avatar username={thread.username} size="large" />
             <UserName>
@@ -108,23 +110,21 @@ Threads.defaultProps = {
   }
 };
 
-/* 
-There are two ways you can "connect" to the GraphQL API, Render Props or Higher-Order Components (HoC). 
-In this example we are going to use HoC.
-You will need to do 3 things:
+export const THREADS_QUERY = gql`
+  query threadsConnection {
+    threadsConnection {
+      edges {
+        node {
+          username
+          firstName
+          lastName
+          lastMessage {
+            message
+          }
+        }
+      }
+    }
+  }
+`;
 
-1) Create the GraphQL query. We recommend you to first run it in http://localhost:3000/graphiql
-
-2) Transform the query into JavaScript so it can run on the browser. You'll need to use the gql function imported at the top. Example: https://github.com/apollographql/graphql-tag
-E.g. 
-const query = gql`
-  someQuery
-`
-
-3) "Connect" the Threads component to GraphQL using the HoC graphql (imported at the top). This Hoc will receive your query and the Threads Component. 
-Official documentation https://www.apollographql.com/docs/react/api/react-apollo.html#graphql
-E.g.
-export default graphql(query)(MyCoolComponent)
-*/
-
-export default Threads;
+export default graphql(THREADS_QUERY)(Threads);

@@ -1,11 +1,11 @@
 import React from "react";
 import PropTypes from "prop-types";
 import styled from "styled-components";
-// import { graphql } from "react-apollo";
-// import gql from "graphql-tag";
+import { graphql, compose } from "react-apollo";
+import gql from "graphql-tag";
 
-// import MESSAGES_QUERY from './Messages.graphql'
-// import { THREADS_QUERY } from '../Threads'
+import MESSAGES_QUERY from "./Messages.graphql";
+import { THREADS_QUERY } from "../Threads";
 import colours from "App/styles/export/colours.css";
 import Avatar from "App/components/Layout/Avatar";
 import Icon from "App/components/Layout/Icon";
@@ -144,19 +144,51 @@ Messages.defaultProps = {
   }
 };
 
-// use the following function to send a message
-// const sendMessage = graphql(gql`
-//     TODO add a mutation here
-// `,
-// {
-//   options: (props) => ({
-//     refetchQueries: // TODO https://www.apollographql.com/docs/react/advanced/caching.html#after-mutations
-//     update: (store, { data: { sendMessage } }) => {
-//       // TODO you need to update a thread and write the Query again in the cache
-//       // Hint https://www.apollographql.com/docs/react/advanced/caching.html#writequery-and-writefragment
-//     }
-//   }),
-//   name: 'sendMessage',
-// })
+const SEND_MESSAGE_MUTATION = gql`
+  mutation sendMessage($from: String!, $to: String!, $message: String!) {
+    sendMessage(input: { from: $from, to: $to, message: $message }) {
+      id
+      time
+      to
+      from
+      message
+    }
+  }
+`;
 
-export default Messages;
+const sendMessage = graphql(SEND_MESSAGE_MUTATION, {
+  options: props => ({
+    refetchQueries: [
+      {
+        query: MESSAGES_QUERY,
+        variables: { username: props.username }
+      }
+    ],
+    update: (store, { data: { sendMessage } }) => {
+      const query = { query: THREADS_QUERY };
+
+      // Read the data from our cache for this query.
+      const data = store.readQuery(query);
+
+      // Mutate the cached data
+      data.threadsConnection.edges.map(({ node }) => {
+        if (node.username === sendMessage.to) {
+          node.lastMessage = {
+            ...node.lastMessage,
+            ...sendMessage
+          };
+        }
+        return { node };
+      });
+
+      // Write our data back to the cache.
+      store.writeQuery({ ...query, data });
+    }
+  }),
+  name: "sendMessage"
+});
+
+export default compose(
+  graphql(MESSAGES_QUERY),
+  sendMessage
+)(Messages);
