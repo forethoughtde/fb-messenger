@@ -34,6 +34,6 @@
 //     -ms-user-select: none;
 //     user-select: none;
 //     background-image: none;
-//     border: 1px solid transparent;
+//     border: 1px solid grey;
 //     border-radius: 4px;
 // }
