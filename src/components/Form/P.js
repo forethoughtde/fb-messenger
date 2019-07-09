@@ -2,7 +2,7 @@ import react from "react";
 import styled from "styled-components";
 
 const P = styled.p`
-  padding-top: "10px";
+  padding-top: 10px;
   ${props =>
     props.quote &&
     `
