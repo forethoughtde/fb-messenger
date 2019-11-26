@@ -29,9 +29,9 @@ Task 2. There should be two stories in P.stories.js:
 
 ```
 {
-    paddingTop: "10px",
-    paddingLeft: "10px",
-    borderLeft: "4px solid grey"
+    padding-top: 10px;
+    padding-left: 10px;
+    border-left: 4px solid grey;
 }
 ```
 
