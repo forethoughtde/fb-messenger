@@ -41,19 +41,26 @@ yarn && yarn start
 
 ### We recommend you to start from top to bottom, and refactor, refactor, refactor
 
-1. Replace the “footer” HTML at the bottom of App.js using the src/Footer.js component.
+1. Replace the “footer” HTML at the bottom of App/index.js using the src/Footer.js component.
 
 2. Refactor the topbar section by creating a functional component and pass the dependencies via props. Make sure everything works Hint: this will be similar to Modal.js
 
-3. Create a component for “messenger” and pass down the dependencies from App via props. Make sure everything works. You can start by making a Messenger folder with an index.js.
+3. Create a component for “Messenger” and pass down the dependencies from App via props. Make sure everything works. You can start by making a Messenger folder with an index.js.
 
-4. Is there any state in app that should be in the Messenger component? Refactor this logic out of App.js and into Messenger. Then, create further functional components from the contents of Messenger and pass them down dependencies via props. Hint: maybe you could have a Threads component, and maybe Conversation?
+4. Is there any state in App/index.js that should be in the Messenger component? Refactor this logic out of App/index.js and into Messenger. Then, create further functional components from the contents of Messenger and pass them down dependencies via props. Hint: Create a Threads.js file and a Chat folder with an index.js file inside the Messenger folder.
 
-5. Question: Is it possible to move showModal from app.js down the tree? why/why not?
+5. Question: Is it possible to move showModal from App/index.js down the tree? why/why not?
 
 6. Create a Link component for the a tags in the footer. Who are the children of the Link component? Link should receive a prop called `to` that becomes the href of the <a href={to} ...
 
-7. What do you think it would make sense to componentize next? Are there any parts on that view that you can reuse? Try to explain to a mentor what you want to refactor before you code :)
+## Bonus exercise
+
+Split the Chat component into the following components:
+
+- ChatBar.js
+- Messages.js
+- UserDetail.js
+- index.js
 
 ## Learning objectives
 
@@ -64,8 +71,7 @@ yarn && yarn start
 - Feel comfortable with class component and functional component syntax and using jsx.
 
 ## Links
-
-- [https://reactjs.academy/blog/introduction-to-thinking-in-react/](https://reactjs.academy/blog/introduction-to-thinking-in-react/)
+- [Lecture: Introduction to Thinking in React](https://reactgraphql.academy/react/introduction-to-thinking-in-react/)
 - [https://reactjs.academy/blog/react-is-all-about-composition-react-hooks-render-props-hocs/#react-composition-model](https://reactjs.academy/blog/react-is-all-about-composition-react-hooks-render-props-hocs/#react-composition-model)
 - [https://reactjs.org/docs/introducing-jsx.html](https://reactjs.org/docs/introducing-jsx.html)
 - [https://reactjs.org/docs/thinking-in-react.html](https://reactjs.org/docs/thinking-in-react.html)
