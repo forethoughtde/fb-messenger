@@ -72,7 +72,7 @@ Let's migrate the rest of the FB-Messenger Sass styles into styled-components ðŸ
 
 ## Articles and links
 
-- [ReactJS article on Styling in React](https://reactjs.academy/blog/styling-in-react/)
+- [Lecture: Styling in React](https://reactgraphql.academy/react/styling-in-react/)
 - [https://www.styled-components.com/](https://www.styled-components.com/)
 - [https://github.com/css-modules/webpack-demo](https://github.com/css-modules/webpack-demo)
 - [https://github.com/css-modules/css-modules/](https://github.com/css-modules/css-modules/)
