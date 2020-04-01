@@ -17,7 +17,7 @@ const App = () => (
       <Route path="/messages" component={Messenger} />
       <Route path="/login" component={Login} />
       <Route path="/profiles" component={Profile} />
-      <Route path="?" component={NotFound} />
+      <Route path="*" component={NotFound} />
     </Switch>
     <Footer />
   </div>
