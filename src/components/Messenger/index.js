@@ -1,12 +1,12 @@
 import React from 'react'
 import { Route } from 'react-router-dom'
 
-import Threads from './Threads'
+import ThreadsContainer from './ThreadsContainer'
 import Chat from './Chat/Chat'
 
 const Messenger = () => (
   <div className="messenger">
-    <Threads />
+    <ThreadsContainer />
     <Route path={`/messages/:username`} component={Chat} />
   </div>
 )
