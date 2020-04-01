@@ -20,7 +20,7 @@ class Chat extends Component {
 
     return (
       <div className="chat">
-        {<ChatBar username={username} match={match} />}
+        {<ChatBar username={username} match={match} totalMessages={messages.length} />}
         <div className="chat-content">
         <Messages messages={messages} username={username} />
         <UserDetail username={username} />
