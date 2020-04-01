@@ -1,31 +1,16 @@
 import React, { Component } from 'react'
 import { Route, Link } from 'react-router-dom'
 
-import { fetchThreads } from '../../api/thread'
 import Avatar from '../Layout/Avatar'
 import Icon from '../Layout/Icon'
 
 class Threads extends Component {
   constructor(props) {
     super(props)
-
-    this.state = {
-      threads: [],
-    }
-  }
-
-  componentDidMount() {
-    fetchThreads()
-      .then(({ threads }) => {
-        this.setState({ threads })
-      })
-      .catch(err => {
-        console.log(err)
-      })
   }
 
   render() {
-    const { threads } = this.state
+    const { threads = [] } = this.props;
 
     return (
       <div className="threads">
