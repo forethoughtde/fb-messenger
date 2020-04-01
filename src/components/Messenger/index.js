@@ -2,12 +2,12 @@ import React from 'react'
 import { Route } from 'react-router-dom'
 
 import ThreadsContainer from './ThreadsContainer'
-import Chat from './Chat/Chat'
+import ChatContainer from './Chat/ChatContainer'
 
 const Messenger = () => (
   <div className="messenger">
     <ThreadsContainer />
-    <Route path={`/messages/:username`} component={Chat} />
+    <Route path={`/messages/:username`} component={ChatContainer} />
   </div>
 )
 
