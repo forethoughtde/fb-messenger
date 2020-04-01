@@ -20,7 +20,7 @@ class ChatContainer extends Component {
     to see if the username in the url is different from the username's conversation you
     are displaying. Use the prevProps parameter and the this.props in the following condition to
     replace the hardcoded false  */
-    const needsToFetchUser =  false 
+    const needsToFetchUser =  false
     if (needsToFetchUser) {
       this.fetchMessages(this.props.match.params.username)
     }
@@ -31,6 +31,7 @@ class ChatContainer extends Component {
     const { match } = this.props
 
     return (
+        <div></div>
       // hint, which component and props do you think we should return here?
     )
   }
