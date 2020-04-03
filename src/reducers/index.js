@@ -5,7 +5,7 @@ import {
   RECEIVE_MESSAGE
 } from "../actions";
 
-export function uiReducer(state = { isMessageDetailOpen: true }, action) {
+export function uiReducer(state = { isMessageDetailOpen: false }, action) {
   switch (action.type) {
     default:
       return state;
