@@ -1,32 +1,25 @@
-import React, { Component } from "react";
+import React, { useState, useEffect } from "react";
 
 import Threads from "./Threads";
-import { fetchThreads } from "../../api/thread";
+import {fetchThreads} from "../../api/thread";
 
-class ThreadsContainer extends Component {
-  constructor(props) {
-    super(props);
+const ThreadsContainer = ()=>{
 
-    this.state = {
-      threads: []
-    };
-  }
+    const [threads, setThreads] = useState([]);
 
-  componentDidMount() {
-    fetchThreads()
-      .then(({ threads }) => {
-        this.setState({ threads });
-      })
-      .catch(err => {
-        console.log(err);
-      });
-  }
+    useEffect(()=>{
+        fetchThreads()
+            .then(({ threads })=>{
+                setThreads(threads);
+            })
+            .catch(err=>{
+                console.log(err);
+            });
+    }, []);
 
-  render() {
-    const { threads } = this.state;
-
-    return <Threads threads={threads} />;
-  }
+    return (
+        <Threads threads={threads}/>
+    );
 }
 
 export default ThreadsContainer;
