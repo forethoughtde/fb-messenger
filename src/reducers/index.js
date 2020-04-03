@@ -28,6 +28,8 @@ export function messagesReducer(state = [], action) {
   switch (action.type) {
       case RECEIVE_MESSAGES:
           return action.messages;
+      case RECEIVE_MESSAGE:
+          return [...state, action.message];
       default:
           return state;
   }
