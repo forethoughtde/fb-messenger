@@ -12,8 +12,12 @@ export function uiReducer(state = { isMessageDetailOpen: true }, action) {
   }
 }
 
-export function threadReducer(state, action) {
+export function threadReducer(state = null, action) {
   switch (action.type) {
+      case RECEIVE_THREAD:
+          return action.thread;
+      default:
+          return state;
   }
 }
 
