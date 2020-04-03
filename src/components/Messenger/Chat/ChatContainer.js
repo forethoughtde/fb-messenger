@@ -13,6 +13,7 @@ const ChatContainer = ({ match }) => {
   }, [username]);
 
   const fetchMessages = username => {
+    setMessages([]);
     setTimeout(() => {
       api.fetchMessages(username).then(messages => {
         setMessages(messages);
