@@ -9,9 +9,18 @@ function it(message, callback) {
     - Catch the error if the callback throw an error and display the error message
     - Bonus, add emojis 😋
   */
+  console.log(message);
+  try {
+    callback()
+    console.log(`✅ Success!`);
+  } catch (error) {
+    console.log(`🛑 ${error}`);
+  }
 }
 
 function describe(message, callback) {
+  console.log(message);
+  callback();
   /* Task:
     - console.log the message
     - Execute the callback

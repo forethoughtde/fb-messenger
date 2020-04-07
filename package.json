@@ -57,7 +57,7 @@
   "scripts": {
     "start": "node scripts/start.js",
     "build": "node scripts/build.js",
-    "t2": "node scripts/test.js --env=jsdom --silent --verbose --noStackTrace --runInBand"
+    "test": "node scripts/test.js --env=jsdom --silent --verbose --noStackTrace --runInBand"
   },
   "babel": {
     "presets": [
@@ -103,7 +103,9 @@
     "extends": "react-app"
   },
   "devDependencies": {
+    "babel-jest": "22",
     "enzyme": "^3.2.0",
-    "enzyme-adapter-react-16": "^1.1.1"
+    "enzyme-adapter-react-16": "^1.1.1",
+    "jest": "22"
   }
 }
